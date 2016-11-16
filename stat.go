@@ -10,8 +10,6 @@ import (
 	"fmt"
 	"net/http"
 
-	"log"
-
 	"github.com/urfave/negroni"
 )
 
@@ -52,7 +50,6 @@ func main() {
 
 		req.ParseForm()
 		content := req.Form.Get("content")
-		log.Println(content)
 		_, err = db.Exec("INSERT INTO Usage(uid, content, type) VALUES($1, $2, 0)", uid, content)
 		e(err)
 		res.Write([]byte(*ver))
