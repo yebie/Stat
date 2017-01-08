@@ -50,7 +50,11 @@ func main() {
 
 		req.ParseForm()
 		content := req.Form.Get("content")
-		_, err = db.Exec("INSERT INTO Usage(uid, content, type) VALUES($1, $2, 0)", uid, content)
+		tp := req.Form.Get("type")
+		if tp == "" {
+			tp = "0"
+		}
+		_, err = db.Exec("INSERT INTO Usage(uid, content, type) VALUES($1, $2, $3)", uid, content, tp)
 		e(err)
 		res.Write([]byte(*ver))
 	})
